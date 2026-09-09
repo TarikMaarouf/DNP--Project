@@ -2,61 +2,58 @@ using Entities;
 using RepositoryContracts;
 
 namespace InMemoryRepositories;
+
 public class CommentInMemoryRepository : ICommentRepository
 {
-    private readonly List<Post> posts = [];
-    public Task<Post>AddAsync (Post post)
+    private readonly List<Comment> comments = [];
+
+    public Task<Comment> AddAsync(Comment comment)
     {
-        post.Id = posts.Any()
-        ? posts.Max(p=>p.Id) + 1
-        :1;
-        posts.Add(post);
-        return Task.FromResult(post);
+        comment.Id = comments.Any()
+            ? comments.Max(c => c.Id) + 1
+            : 1;
+        comments.Add(comment);
+        return Task.FromResult(comment);
     }
 
-    public Task UpdateAsync(Post post)
+    public Task UpdateAsync(Comment comment)
     {
-        Post? existingPost = posts.SingleOrDefault (p=> p.Id == post.Id);
-        if (existingPost is null)
+        Comment? existingComment = comments.SingleOrDefault(c => c.Id == comment.Id);
+        if (existingComment is null)
         {
-            throw new InvalidOperationException($"Post with ID ' {post.Id}' not found");
+            throw new InvalidOperationException($"Comment with ID '{comment.Id}' not found");
         }
-        posts.Remove(existingPost);
-        posts.Add(post);
+
+        comments.Remove(existingComment);
+        comments.Add(comment);
         return Task.CompletedTask;
     }
 
     public Task DeleteAsync(int id)
     {
-        Post? postToRemove = posts.SingleOrDefault(p => p.Id == id);
-
-        if (postToRemove is null)
+        Comment? commentToRemove = comments.SingleOrDefault(c => c.Id == id);
+        if (commentToRemove is null)
         {
-            throw new InvalidOperationException(
-            $"Post with ID '{id}' not found");
+            throw new InvalidOperationException($"Comment with ID '{id}' not found");
         }
 
-        posts.Remove(postToRemove);
-
+        comments.Remove(commentToRemove);
         return Task.CompletedTask;
-
     }
 
-    public Task<Post> GetSingleAsync(int id)
+    public Task<Comment> GetSingleAsync(int id)
     {
-        Post? post = posts.SingleOrDefault(p => p.Id == id);
-
-        if (post is null)
+        Comment? comment = comments.SingleOrDefault(c => c.Id == id);
+        if (comment is null)
         {
-            throw new InvalidOperationException(
-            $"Post with ID '{id}' not found");
+            throw new InvalidOperationException($"Comment with ID '{id}' not found");
         }
 
-        return Task.FromResult(post);
+        return Task.FromResult(comment);
     }
 
-    public IQueryable<Post> GetManyAsync()
+    public IQueryable<Comment> GetManyAsync()
     {
-        return posts.AsQueryable();
+        return comments.AsQueryable();
     }
-} 
+}

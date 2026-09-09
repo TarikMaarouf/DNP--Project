@@ -2,61 +2,58 @@ using Entities;
 using RepositoryContracts;
 
 namespace InMemoryRepositories;
+
 public class UserInMemoryRepository : IUserRepository
 {
-    private readonly List<Post> posts = [];
-    public Task<Post>AddAsync (Post post)
+    private readonly List<User> users = [];
+
+    public Task<User> AddAsync(User user)
     {
-        post.Id = posts.Any()
-        ? posts.Max(p=>p.Id) + 1
-        :1;
-        posts.Add(post);
-        return Task.FromResult(post);
+        user.Id = users.Any()
+            ? users.Max(u => u.Id) + 1
+            : 1;
+        users.Add(user);
+        return Task.FromResult(user);
     }
 
-    public Task UpdateAsync(Post post)
+    public Task UpdateAsync(User user)
     {
-        Post? existingPost = posts.SingleOrDefault (p=> p.Id == post.Id);
-        if (existingPost is null)
+        User? existingUser = users.SingleOrDefault(u => u.Id == user.Id);
+        if (existingUser is null)
         {
-            throw new InvalidOperationException($"Post with ID ' {post.Id}' not found");
+            throw new InvalidOperationException($"User with ID '{user.Id}' not found");
         }
-        posts.Remove(existingPost);
-        posts.Add(post);
+
+        users.Remove(existingUser);
+        users.Add(user);
         return Task.CompletedTask;
     }
 
     public Task DeleteAsync(int id)
     {
-        Post? postToRemove = posts.SingleOrDefault(p => p.Id == id);
-
-        if (postToRemove is null)
+        User? userToRemove = users.SingleOrDefault(u => u.Id == id);
+        if (userToRemove is null)
         {
-            throw new InvalidOperationException(
-            $"Post with ID '{id}' not found");
+            throw new InvalidOperationException($"User with ID '{id}' not found");
         }
 
-        posts.Remove(postToRemove);
-
+        users.Remove(userToRemove);
         return Task.CompletedTask;
-
     }
 
-    public Task<Post> GetSingleAsync(int id)
+    public Task<User> GetSingleAsync(int id)
     {
-        Post? post = posts.SingleOrDefault(p => p.Id == id);
-
-        if (post is null)
+        User? user = users.SingleOrDefault(u => u.Id == id);
+        if (user is null)
         {
-            throw new InvalidOperationException(
-            $"Post with ID '{id}' not found");
+            throw new InvalidOperationException($"User with ID '{id}' not found");
         }
 
-        return Task.FromResult(post);
+        return Task.FromResult(user);
     }
 
-    public IQueryable<Post> GetManyAsync()
+    public IQueryable<User> GetManyAsync()
     {
-        return posts.AsQueryable();
+        return users.AsQueryable();
     }
 }
