@@ -67,7 +67,7 @@ public class ManageUsersView
         {
             existingUser = await userRepository.GetSingleAsync(id);
         }
-        catch (InvalidOperationException e)
+        catch (NotFoundException e)
         {
             Console.WriteLine(e.Message);
             return;
@@ -105,7 +105,7 @@ public class ManageUsersView
             await userRepository.DeleteAsync(id);
             Console.WriteLine("User deleted.");
         }
-        catch (InvalidOperationException e)
+        catch (NotFoundException e)
         {
             Console.WriteLine(e.Message);
         }

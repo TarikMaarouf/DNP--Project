@@ -2,7 +2,12 @@
   <Folder Name="/Server/">
     <Project Path="Server/CLI/CLI.csproj" />
     <Project Path="Server/Entities/Entities.csproj" />
+    <Project Path="Server/FileRepositories/FileRepositories.csproj" />
     <Project Path="Server/InMemoryRepositories/InMemoryRepositories.csproj" />
     <Project Path="Server/RepositoryContracts/RepositoryContracts.csproj" />
+    <Project Path="Server/WebAPI/WebAPI.csproj" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="Shared/ApiContracts/ApiContracts.csproj" />
   </Folder>
 </Solution>

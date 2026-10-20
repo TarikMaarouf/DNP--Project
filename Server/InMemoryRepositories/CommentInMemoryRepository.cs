@@ -28,7 +28,7 @@ public class CommentInMemoryRepository : ICommentRepository
         Comment? existingComment = comments.SingleOrDefault(c => c.Id == comment.Id);
         if (existingComment is null)
         {
-            throw new InvalidOperationException($"Comment with ID '{comment.Id}' not found");
+            throw new NotFoundException($"Comment with ID '{comment.Id}' not found");
         }
 
         comments.Remove(existingComment);
@@ -41,7 +41,7 @@ public class CommentInMemoryRepository : ICommentRepository
         Comment? commentToRemove = comments.SingleOrDefault(c => c.Id == id);
         if (commentToRemove is null)
         {
-            throw new InvalidOperationException($"Comment with ID '{id}' not found");
+            throw new NotFoundException($"Comment with ID '{id}' not found");
         }
 
         comments.Remove(commentToRemove);
@@ -53,7 +53,7 @@ public class CommentInMemoryRepository : ICommentRepository
         Comment? comment = comments.SingleOrDefault(c => c.Id == id);
         if (comment is null)
         {
-            throw new InvalidOperationException($"Comment with ID '{id}' not found");
+            throw new NotFoundException($"Comment with ID '{id}' not found");
         }
 
         return Task.FromResult(comment);

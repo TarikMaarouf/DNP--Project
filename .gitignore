@@ -480,3 +480,8 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Data files created by the file repositories
+users.json
+posts.json
+comments.json

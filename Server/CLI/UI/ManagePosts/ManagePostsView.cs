@@ -76,7 +76,7 @@ public class ManagePostsView
         {
             existingPost = await postRepository.GetSingleAsync(id);
         }
-        catch (InvalidOperationException e)
+        catch (NotFoundException e)
         {
             Console.WriteLine(e.Message);
             return;
@@ -114,7 +114,7 @@ public class ManagePostsView
             await postRepository.DeleteAsync(id);
             Console.WriteLine("Post deleted.");
         }
-        catch (InvalidOperationException e)
+        catch (NotFoundException e)
         {
             Console.WriteLine(e.Message);
         }

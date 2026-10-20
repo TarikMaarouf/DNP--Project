@@ -31,7 +31,7 @@ public class SinglePostView
         {
             post = await postRepository.GetSingleAsync(postId);
         }
-        catch (InvalidOperationException e)
+        catch (NotFoundException e)
         {
             Console.WriteLine(e.Message);
             return;
@@ -81,7 +81,7 @@ public class SinglePostView
         {
             await userRepository.GetSingleAsync(userId);
         }
-        catch (InvalidOperationException)
+        catch (NotFoundException)
         {
             Console.WriteLine($"No user with ID '{userId}' exists.");
             return;

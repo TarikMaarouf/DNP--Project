@@ -1,0 +1,83 @@
+@WebAPI_HostAddress = http://localhost:5054
+
+### Create a user
+POST {{WebAPI_HostAddress}}/users
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "password123"
+}
+
+### Get all users (filter on username)
+GET {{WebAPI_HostAddress}}/users?usernameContains=ali
+
+### Get single user
+GET {{WebAPI_HostAddress}}/users/1
+
+### Update user
+PUT {{WebAPI_HostAddress}}/users/1
+Content-Type: application/json
+
+{
+  "username": "alice2",
+  "password": "newpassword"
+}
+
+### Create a post
+POST {{WebAPI_HostAddress}}/posts
+Content-Type: application/json
+
+{
+  "title": "Best pizza toppings",
+  "body": "What are your favorite pizza toppings?",
+  "userId": 1
+}
+
+### Get posts (filter on title, user id and/or username)
+GET {{WebAPI_HostAddress}}/posts?titleContains=pizza&userId=1
+
+### Get single post with comments
+GET {{WebAPI_HostAddress}}/posts/1?includeComments=true
+
+### Get comments of a post
+GET {{WebAPI_HostAddress}}/posts/1/comments
+
+### Update post
+PUT {{WebAPI_HostAddress}}/posts/1
+Content-Type: application/json
+
+{
+  "title": "Best pizza toppings (updated)",
+  "body": "Pepperoni, obviously."
+}
+
+### Create a comment
+POST {{WebAPI_HostAddress}}/comments
+Content-Type: application/json
+
+{
+  "body": "I agree!",
+  "userId": 1,
+  "postId": 1
+}
+
+### Get comments (filter on user id, username and/or post id)
+GET {{WebAPI_HostAddress}}/comments?postId=1&username=alice2
+
+### Update comment
+PUT {{WebAPI_HostAddress}}/comments/1
+Content-Type: application/json
+
+{
+  "body": "I really agree!"
+}
+
+### Delete comment
+DELETE {{WebAPI_HostAddress}}/comments/1
+
+### Delete post
+DELETE {{WebAPI_HostAddress}}/posts/1
+
+### Delete user
+DELETE {{WebAPI_HostAddress}}/users/1

@@ -36,7 +36,7 @@ public class CreatePostView
         {
             await userRepository.GetSingleAsync(userId);
         }
-        catch (InvalidOperationException)
+        catch (NotFoundException)
         {
             Console.WriteLine($"No user with ID '{userId}' exists.");
             return;
